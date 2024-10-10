@@ -6,6 +6,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: flex-start;
+    flex-direction: column;
 }
 
 .pokedex-container {
@@ -40,8 +41,8 @@ h1 {
 }
 
 .pokemon-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    transform: translateY(-10px);
+    box-shadow: 0 15px 20px rgba(0, 0, 0, 0.2);
 }
 
 .pokemon-card img {
@@ -57,4 +58,52 @@ h1 {
 .pokemon-card p {
     font-size: 0.9rem;
     color: #666;
+}
+
+.pokemon-detail {
+    padding: 15px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.pokemon-detail img {
+    width: 100px;
+    height: 100px;
+}
+
+.pokemon-detail h3 {
+    font-size: 1.2rem;
+    color: #444;
+}
+
+.pokemon-detail p {
+    font-size: 0.9rem;
+    color: #666;
+}
+.pokemon-detail button{
+    background-color: #007bff; /* Color azul vibrante */
+    color: white; /* Color de texto blanco */
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+.pokemon-detail button:hover {
+    background-color: #0056b3; /* Color más oscuro en hover */
+    transform: translateY(-2px); /* Leve movimiento hacia arriba al pasar el ratón */
+}
+.pokemon-detail button:active {
+    background-color: #003f7f; /* Color más oscuro cuando el botón es presionado */
+    transform: translateY(0); /* Reseteo del efecto de hover al presionar */
+}
+
+.pokemon-detail button:focus {
+    outline: none; /* Quita el borde predeterminado al hacer foco */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Añade un resplandor azul cuando está enfocado */
 }
