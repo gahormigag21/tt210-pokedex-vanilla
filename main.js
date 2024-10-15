@@ -3,6 +3,17 @@ const pokemonDetail = document.getElementById("pokemon-detail")
 const pokemonInfo = document.getElementById("pokemon-info")
 const backButton = document.getElementById("back-button")
 
+const searchInput = document.getElementById("search-input")
+const searchButton = document.getElementById("search-button")
+
+const prevButton = document.getElementById("prev-button")
+const nextButton = document.getElementById("next-button")
+
+let currentPage = 1
+const itemsPerPage=10
+const totalPokemons=1025
+
+
 async function fetchPokemonData(pokemonId) {
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`);
     const pokemon = await response.json();
@@ -55,11 +66,50 @@ function showPokemonDetail(pokemon,isShiny,sprite) {
     return
 }
 
-async function loadPokedex() {
-    for (let i = 1; i <= 50; i++) {
+async function loadPokedex(page) {
+    pokemonList.innerHTML=""
+    const start = (page-1)*itemsPerPage +1
+    const end = (page*itemsPerPage)
+    for (let i = start; i <= end; i++) {
         const pokemon = await fetchPokemonData(i);
         displayPokemon(pokemon);
     }
+    updatePaginationButtons(page)
+    return
 }
 
-loadPokedex();
+async function searchPokemon() {
+    const query = searchInput.value.toLowerCase().trim()
+    if (query) {
+        try {
+            const pokemon = await fetchPokemonData(query)
+            pokemonList.style.display = "none"
+            showPokemonDetail(pokemon,false,pokemon.sprites.front_default)
+        } catch (error) {
+            alert("Pokémon no encontrado, intentelo de nuevo")
+        }
+    }else{
+        alert("Ingresar un nombre o un id de pokemon")
+    }
+}
+
+searchButton.addEventListener("click",searchPokemon)
+
+function updatePaginationButtons(page) {
+    prevButton.disabled = page == 1
+    nextButton.disabled = page == Math.floor(totalPokemons/itemsPerPage)
+    
+}
+
+
+nextButton.addEventListener("click", ()=>{
+    currentPage++
+    loadPokedex(currentPage);
+})
+prevButton.addEventListener("click", ()=>{
+    if (currentPage>1) {
+        currentPage--
+        loadPokedex(currentPage);
+    }
+})
+loadPokedex(currentPage);

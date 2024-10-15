@@ -10,9 +10,19 @@
     <div class="pokedex-container">
         <h1>Pokédex</h1>
 
+        <div class="search-container">
+
+            <input type="text" 
+            name="search-input" 
+            id="search-input"
+            placeholder="Busca Pokemon por ID o Nombre">
+            <button id="search-button">Buscar</button>
+        </div>
+
         <div class="pokemon-list" id="pokemon-list">
 
         </div>
+        <!-- Detalle de pokemon, esta clase al renderizar la pagina no se va a ver -->
 
         <div class="pokemon-detail" id="pokemon-detail" style="display: none;">
             <button id="back-button">Volver a la pokédex</button>
@@ -20,9 +30,13 @@
     
         </div>
 
+        <div class="pagination-buttons">
+            <button id="prev-button">Anterior</button>
+            <button id="next-button">Siguiente</button>
+        </div>
     </div>
-    <!-- Detalle de pokemon, esta clase al renderizar la pagina no se va a ver -->
     
+        
 
     <script src="main.js"></script>
 
