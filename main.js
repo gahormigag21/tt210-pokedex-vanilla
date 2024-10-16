@@ -10,8 +10,37 @@ const prevButton = document.getElementById("prev-button")
 const nextButton = document.getElementById("next-button")
 
 let currentPage = 1
-const itemsPerPage=10
+const itemsPerPage=20
 const totalPokemons=1025
+
+// Mapeo de tipos de Pokémon a colores
+const typeColors = {
+    normal: '#A8A77A',
+    fire: '#EE8130',
+    water: '#6390F0',
+    electric: '#F7D02C',
+    grass: '#7AC74C',
+    ice: '#96D9D6',
+    fighting: '#C22E28',
+    poison: '#A33EA1',
+    ground: '#E2BF65',
+    flying: '#A98FF3',
+    psychic: '#F95587',
+    bug: '#A6B91A',
+    rock: '#B6A136',
+    ghost: '#735797',
+    dragon: '#6F35FC',
+    dark: '#705746',
+    steel: '#B7B7CE',
+    fairy: '#D685AD'
+};
+
+// Función para obtener el color según el tipo de Pokémon
+function getTypeColor(types) {
+    // Si el Pokémon tiene varios tipos, puedes elegir el primer tipo como color primario
+    const primaryType = types[0].type.name;
+    return typeColors[primaryType] || '#777'; // Si no se encuentra el tipo, usa un color por defecto
+}
 
 
 async function fetchPokemonData(pokemonId) {
@@ -31,17 +60,21 @@ function displayPokemon(pokemon) {
 
     const sprite = isShiny ? pokemon.sprites.front_shiny : pokemon.sprites.front_default;
     
+    // Si es shiny, el color de fondo será dorado, si no, dependerá del tipo de Pokémon
+    const bgColor = isShiny ? 'gold' : getTypeColor(pokemon.types);
     
+    pokemonCard.style.backgroundColor = bgColor; // Aplica el color de fondo dinámicamente
+
     pokemonCard.innerHTML = `
         <img src="${sprite}" alt="${pokemon.name}">
         <h3>${pokemon.name.toUpperCase()} ${isShiny ? "(Shiny)" : ""}</h3>
         <p>ID: ${pokemon.id}</p>
     `;
     
-    //linea para mostrar detalles de pokemon
-    pokemonCard.addEventListener("click", ()=>showPokemonDetail(pokemon,isShiny,sprite))    
+    // Evento para mostrar detalles
+    pokemonCard.addEventListener("click", () => showPokemonDetail(pokemon, isShiny, sprite));
     pokemonList.appendChild(pokemonCard);
-    return
+    return;
 }
 
 backButton.addEventListener("click",()=>{
